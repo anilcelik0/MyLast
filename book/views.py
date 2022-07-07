@@ -1,7 +1,5 @@
-from re import search
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from numpy import append
 from book.models import books
 import json
 
@@ -53,8 +51,8 @@ def index(request):
     return render(request, 'book/book.html')
 
 def book_page(request,book_name):
-
-    if request.method == 'GET':
-        print(book_name)
-        
-        return render(request, "book/book_page.html")
+    book=books.objects.filter(name=book_name).first()
+    context = {
+        'book':book,
+    }
+    return render(request, 'book/book_page.html',context)

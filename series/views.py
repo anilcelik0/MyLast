@@ -57,3 +57,11 @@ def index(request):
 
         
     return render(request, 'series/series.html')
+
+
+def series_page(request,series_name):
+    series=seriess.objects.filter(name=series_name).first()
+    context = {
+        'series':series,
+    }
+    return render(request, 'series/series_page.html',context)

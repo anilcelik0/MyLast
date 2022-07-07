@@ -5,4 +5,5 @@ from movie import views
 
 urlpatterns = [
     path('', views.index, name='movie'),
+    path('page/<str:movie_name>', views.movie_page, name="movie_page")
 ]

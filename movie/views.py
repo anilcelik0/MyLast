@@ -59,3 +59,11 @@ def index(request):
 
     
     return render(request, 'movie/movie.html')
+
+
+def movie_page(request,movie_name):
+    movie=movies.objects.filter(name=movie_name).first()
+    context = {
+        'movie':movie,
+    }
+    return render(request, 'movie/movie_page.html',context)

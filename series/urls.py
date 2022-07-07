@@ -5,4 +5,5 @@ from series import views
 
 urlpatterns = [
     path('', views.index, name='series'),
+    path('page/<str:series_name>', views.series_page, name="series_page")
 ]

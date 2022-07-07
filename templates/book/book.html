@@ -107,7 +107,7 @@
             <div class="col">
                 <div class="container-fluid">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
-                        <button class="btn btn-outline-success" type="button" id="buton">Search</button>
+                        <a class="btn btn-outline-success"  id="buton">Search</a>
                 </div>
                 <script>
                     $( function() {
@@ -125,12 +125,8 @@
                         
                     $('#buton').click(function (){
                         var a =$('#search').val();
-                        var url ='{% url "page" 1 %}'.replace('1',a);
-
-                        $.ajax({ 
-                            url: url, 
-                            type: "GET",
-                        });
+                        var url ='{% url "book_page" 1 %}'.replace('1',a);
+                        $('#buton').attr('href', url);
                     });
                 </script>
             </div>
