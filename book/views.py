@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from book.models import books
 import json
@@ -56,3 +56,6 @@ def book_page(request,book_name):
         'book':book,
     }
     return render(request, 'book/book_page.html',context)
+
+def yon(request):
+    return redirect('book')
