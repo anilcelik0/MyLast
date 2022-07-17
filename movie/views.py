@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from movie.models import movies
+from movie.models import movies, movie_shares
 import json
 
 # Create your views here.
@@ -56,9 +56,13 @@ def index(request):
                 edited_names.append(name)
         
         return JsonResponse(names, safe=False)
-
     
-    return render(request, 'movie/movie.html')
+    shares = movie_shares.objects.all()
+    context = {
+        "shares":shares
+    }
+
+    return render(request, 'movie/movie.html',context)
 
 
 def movie_page(request,movie_name):

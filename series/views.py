@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 import json
-from series.models import seriess
+from series.models import seriess, series_shares
 
 # Create your views here.
 
@@ -55,8 +55,12 @@ def index(request):
         
         return JsonResponse(names, safe=False)
 
+    shares = series_shares.objects.all()
+    context = {
+        "shares":shares
+    }
         
-    return render(request, 'series/series.html')
+    return render(request, 'series/series.html',context)
 
 
 def series_page(request,series_name):

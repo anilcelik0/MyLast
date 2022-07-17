@@ -1,5 +1,5 @@
-from enum import unique
 from django.db import models
+from django.forms import ImageField
 
 # Create your models here.
 
@@ -10,7 +10,29 @@ class books(models.Model):
     type=models.CharField(max_length=40)
     content=models.CharField(max_length=2000)
     img_url=models.ImageField()
-    yt= models.DateTimeField(auto_now_add = True)
+    yt=models.DateTimeField(auto_now_add = True)
+    
+    def __str__(self):
+        return self.name
     
     
-
+class book_shares(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    photo=models.ImageField(upload_to='book/shares')
+    comment=models.CharField(max_length=2000, null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    
+    role_hide=[(0,'herkes'),
+        (1,'gizli')]
+    hide = models.IntegerField(null=False,choices=role_hide,default=0)
+    
+    role_rate=[(1,'1'),
+        (2,'2'),
+        (3,'3'),
+        (4,'4'),
+        (5,'5')]
+    rate = models.IntegerField(null=False,choices=role_rate,default=1)
+     
+    book=models.ForeignKey(to='book.books', on_delete=models.CASCADE, related_name='book_share', null=False)
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='book_user', null=False)
+    

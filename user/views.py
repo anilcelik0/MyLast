@@ -71,3 +71,6 @@ def logout(request):
     messages.add_message(request, messages.SUCCESS, 'Oturum kapatıldı')
 
     return redirect('book')
+
+def lists(request):
+    return render(request,'user/lists.html')

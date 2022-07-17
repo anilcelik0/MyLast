@@ -1,0 +1,117 @@
+<a class="navbar-brand " href="#">
+    <img src="http://127.0.0.1:8000/image/logo.jpg" alt="" width="60" height="48" class="d-inline-block align-text-top text-center">
+    MyLast
+  </a>
+{% if user.is_authenticated %}
+<div class="nav-item fs-3">
+<a class="nav-link" href="">Ana Sayfa</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="{% url 'book' %}">Keşfet</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="{% url 'lists' %}">Listelerim</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="">Kaydedilenler</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="">Profil</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="">Ayarlar</a>
+</div>
+<div class="nav-item fs-3">
+<a class="nav-link" href="">Dilek ve Şikayet</a>
+</div>        
+<div class="nav-item fs-3">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
+      id="search">
+    <a class="btn btn-outline-success" id="buton">Search</a>
+  </div>
+{% else %}
+<div class="nav-item fs-3">
+<a class="nav-link" href="{% url 'book' %}">Keşfet</a>
+</div>
+<div class="nav-item fs-3">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
+      id="search">
+    <a class="btn btn-outline-success" id="buton">Search</a>
+  </div>
+
+<p class="fw-lighter ">Özelliklere erişmek için giriş yapınız</p>
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleInputusername">Username</label>
+        <input type="text" name="username" class="form-control" id="exampleInputusername" aria-describedby="emailHelp"
+            required>
+
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+    </div>
+
+    <button name="login" type="submit" class="btn btn-primary mt-2">Login</button>
+
+</form>
+<!-- Button trigger modal -->
+<a type="button" class="btn btn-light mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Kayıt Ol
+</a>
+{% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kayıt Ol</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action={% url 'register' %}>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputname">İsim </label>
+                        <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                            required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputsurname">Soyisim </label>
+                        <input type="text" name="surname" class="form-control" id="surname" aria-describedby="emailHelp"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Kullanıcı Adı </label>
+                        <input type="text" name="username" class="form-control" id="input" aria-describedby="emailHelp"
+                            required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Şifre</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Şifre tekrar</label>
+                        <input type="password" name="repassword" class="form-control" id="repassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            required>
+                        <small id="emailHelp" class="form-text text-muted">İletişim için e posta adresini doğru
+                            giriniz</small>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
