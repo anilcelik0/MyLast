@@ -38,4 +38,22 @@ class movie_shares(models.Model):
     movie=models.ForeignKey(to='movie.movies', on_delete=models.CASCADE, related_name='movie_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='movie_user', null=False)
     
+class movie_list(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    name=models.CharField(null=False,max_length=200)
+    yt=models.DateTimeField(auto_now_add = True)
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='movie_list_user', null=False)
+    role_hide=[(0,'herkes'),
+        (1,'gizli')]
+    hide = models.IntegerField(null=False,choices=role_hide,default=0)
+    
+    def __str__(self):
+        return self.name
+
+class movie_list_content(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    movie=models.ForeignKey(to='movie.movies', on_delete=models.CASCADE, related_name='movie', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    movie_list_name=models.ForeignKey(to='movie.movie_list', on_delete=models.CASCADE, related_name='movie_list_name', null=False)
+
 

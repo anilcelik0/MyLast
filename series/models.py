@@ -36,3 +36,21 @@ class series_shares(models.Model):
     series=models.ForeignKey(to='series.seriess', on_delete=models.CASCADE, related_name='series_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_user', null=False)
     
+class series_list(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    name=models.CharField(null=False,max_length=200)
+    yt=models.DateTimeField(auto_now_add = True)
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_list_user', null=False)
+    role_hide=[(0,'herkes'),
+        (1,'gizli')]
+    hide = models.IntegerField(null=False,choices=role_hide,default=0)
+    
+    def __str__(self):
+        return self.name
+
+class series_list_content(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    series=models.ForeignKey(to='series.seriess', on_delete=models.CASCADE, related_name='series', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    series_list_name=models.ForeignKey(to='series.series_list', on_delete=models.CASCADE, related_name='series_list_name', null=False)
+

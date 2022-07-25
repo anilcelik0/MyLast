@@ -76,5 +76,6 @@ def book_page(request,book_name):
     }
     return render(request, 'book/book_page.html',context)
 
+# http://127.0.0.1:8000/ --> http://127.0.0.1:8000/book/
 def yon(request):
     return redirect('book')

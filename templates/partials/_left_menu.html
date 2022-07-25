@@ -1,42 +1,62 @@
-<a class="navbar-brand " href="#">
-    <img src="http://127.0.0.1:8000/image/logo.jpg" alt="" width="60" height="48" class="d-inline-block align-text-top text-center">
-    MyLast
-  </a>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+    <button id="navbut" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+<div class="row">
+<div class="nav-item fs-3 col-12 row ">
+    <a class="navbar-brand " href="#">
+        <img src="http://127.0.0.1:8000/image/logo.jpg" alt="" width="60" height="48" class="d-inline-block align-text-top text-center">
+        MyLast
+    </a>
+</div>
 {% if user.is_authenticated %}
-<div class="nav-item fs-3">
-<a class="nav-link" href="">Ana Sayfa</a>
+<div class="nav-item fs-3 col-12 row ">
+    <img class="col-2" src="http://127.0.0.1:8000/image/home.svg">
+<a class="nav-link col-10" href="">Ana Sayfa</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="{% url 'book' %}">Keşfet</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/hashtag.svg">
+<a class="nav-link col-10" href="{% url 'book' %}">Keşfet</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="{% url 'lists' %}">Listelerim</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/list.svg">
+<a class="nav-link col-10" href="{% url 'lists' %}">Listelerim</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="">Kaydedilenler</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/save.svg">
+<a class="nav-link col-10" href="">Kaydedilenler</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="">Profil</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/profile.svg">
+<a class="nav-link col-10" href="">Profil</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="">Ayarlar</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/settings.svg">
+<a class="nav-link col-10" href="">Ayarlar</a>
 </div>
-<div class="nav-item fs-3">
-<a class="nav-link" href="">Dilek ve Şikayet</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/request.svg">
+<a class="nav-link col-10" href="">Dilek ve Şikayet</a>
 </div>        
-<div class="nav-item fs-3">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
-      id="search">
-    <a class="btn btn-outline-success" id="buton">Search</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/logout.svg">
+<a class="nav-link col-10" href="{% url 'logout' %}">Oturumu Kapat</a>
+</div>        
+<div class="fs-3 col-12 row">
+    <input class="form-control me-2 col-9" style="width: 70%;" type="search" placeholder="Ara" aria-label="Search" name="search" id="search">
+    
+    <a class="btn btn-outline-success col-3" style="width: 25%;" id="buton">Ara</a>
   </div>
 {% else %}
-<div class="nav-item fs-3">
-<a class="nav-link" href="{% url 'book' %}">Keşfet</a>
+<div class="nav-item fs-3 col-12 row">
+    <img class="col-2" src="http://127.0.0.1:8000/image/hashtag.svg">
+<a class="nav-link col-10" href="{% url 'book' %}">Keşfet</a>
 </div>
-<div class="nav-item fs-3">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
-      id="search">
-    <a class="btn btn-outline-success" id="buton">Search</a>
+<div class="fs-3 col-12 row">
+    <input class="form-control me-2 col-9" style="width: 70%;" type="search" placeholder="Ara" aria-label="Search" name="search" id="search">
+    
+    <a class="btn btn-outline-success col-3" style="width: 25%;" id="buton">Ara</a>
   </div>
 
 <p class="fw-lighter ">Özelliklere erişmek için giriş yapınız</p>
@@ -115,3 +135,15 @@
         </div>
     </div>
 </div>
+</div>
+</div>
+</nav>
+<script>
+    $('#navbut').on('click',function(e){
+        if($('.collapse').hasClass('show')){
+            console.log('show')
+          $('.collapse').collapse('hide'); 
+        }
+      })
+      
+    </script>
