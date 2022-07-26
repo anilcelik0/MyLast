@@ -20,7 +20,6 @@ class movies(models.Model):
     
 class movie_shares(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
-    photo=models.ImageField(upload_to='movie/shares')
     comment=models.CharField(max_length=2000, null=False)
     yt=models.DateTimeField(auto_now_add = True)
     
@@ -37,6 +36,9 @@ class movie_shares(models.Model):
      
     movie=models.ForeignKey(to='movie.movies', on_delete=models.CASCADE, related_name='movie_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='movie_user', null=False)
+    
+    def __str__(self):
+        return self.movie.name
     
 class movie_list(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
@@ -56,4 +58,14 @@ class movie_list_content(models.Model):
     yt=models.DateTimeField(auto_now_add = True)
     movie_list_name=models.ForeignKey(to='movie.movie_list', on_delete=models.CASCADE, related_name='movie_list_name', null=False)
 
+    def __str__(self):
+        return self.movie.name
+    
+class movie_saves(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    movie_share=models.ForeignKey('movie.movie_shares', on_delete=models.CASCADE, related_name='movie_share')
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='movie_share_user', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
 
+    def __str__(self):
+        return self.user.username

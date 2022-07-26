@@ -18,7 +18,6 @@ class seriess(models.Model):
     
 class series_shares(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
-    photo=models.ImageField(upload_to='series/shares',null=True)
     comment=models.CharField(max_length=2000, null=False)
     yt=models.DateTimeField(auto_now_add = True)
     
@@ -35,6 +34,9 @@ class series_shares(models.Model):
      
     series=models.ForeignKey(to='series.seriess', on_delete=models.CASCADE, related_name='series_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_user', null=False)
+    
+    def __str__(self):
+        return self.series.name
     
 class series_list(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
@@ -54,3 +56,14 @@ class series_list_content(models.Model):
     yt=models.DateTimeField(auto_now_add = True)
     series_list_name=models.ForeignKey(to='series.series_list', on_delete=models.CASCADE, related_name='series_list_name', null=False)
 
+    def __str__(self):
+        return self.series.name
+    
+class series_saves(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    series_share=models.ForeignKey('series.series_shares', on_delete=models.CASCADE, related_name='series_share')
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_share_user', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.user.username

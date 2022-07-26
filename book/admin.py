@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import books, book_shares, book_list, book_list_content
+from .models import books, book_shares, book_list, book_list_content, book_saves
 
 # Register your models here.
 
@@ -8,7 +8,7 @@ class book_admin(admin.ModelAdmin):
     search_fields=("name","author","type",)
     
 class book_shares_admin(admin.ModelAdmin):
-    list_display=("id","photo","rate","comment","yt","hide","book","user")
+    list_display=("id","rate","comment","yt","hide","book","user")
     search_fields=("id",)
     
 class book_list_admin(admin.ModelAdmin):
@@ -19,7 +19,12 @@ class book_list_content_admin(admin.ModelAdmin):
     list_display=("id","book","book_list_name")
     search_fields=("book",)
     
+class book_saves_admin(admin.ModelAdmin):
+    list_display=("id","book_share","user","yt")
+    search_fields=("user",)
+    
 admin.site.register(books,book_admin)
 admin.site.register(book_shares,book_shares_admin)
 admin.site.register(book_list,book_list_admin)
 admin.site.register(book_list_content,book_list_content_admin)
+admin.site.register(book_saves,book_saves_admin)

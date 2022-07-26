@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from book.models import books, book_shares
+from book.models import books, book_shares, book_saves
 import json
 
 # Create your views here.
@@ -79,3 +79,8 @@ def book_page(request,book_name):
 # http://127.0.0.1:8000/ --> http://127.0.0.1:8000/book/
 def yon(request):
     return redirect('book')
+
+
+def book_saves(request):
+    user=request.user
+    saves=book_saves.objects.fiter()

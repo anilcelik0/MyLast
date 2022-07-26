@@ -18,7 +18,6 @@ class books(models.Model):
     
 class book_shares(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
-    photo=models.ImageField(upload_to='book/shares')
     comment=models.CharField(max_length=2000, null=False)
     yt=models.DateTimeField(auto_now_add = True)
     
@@ -35,6 +34,9 @@ class book_shares(models.Model):
      
     book=models.ForeignKey(to='book.books', on_delete=models.CASCADE, related_name='book_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='book_user', null=False)
+    
+    def __str__(self):
+        return self.book.name
     
 class book_list(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
@@ -53,5 +55,17 @@ class book_list_content(models.Model):
     book=models.ForeignKey(to='book.books', on_delete=models.CASCADE, related_name='book', null=False)
     yt=models.DateTimeField(auto_now_add = True)
     book_list_name=models.ForeignKey(to='book.book_list', on_delete=models.CASCADE, related_name='book_list_name', null=False)
+    
+    def __str__(self):
+        return self.book.name
+    
 
+class book_saves(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    book_share=models.ForeignKey('book.book_shares', on_delete=models.CASCADE, related_name='book_share')
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='book_share_user', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    
+    def __str__(self):
+        return self.user.username
     

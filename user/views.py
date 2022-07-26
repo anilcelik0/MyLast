@@ -55,7 +55,6 @@ def register(request):
     else:
         return render(request, 'book/book.html')
 
-
 def login(request):
         #öğeleri al
     username = request.POST['username']
@@ -72,7 +71,6 @@ def login(request):
     else:
         messages.add_message(request, messages.ERROR, 'Kullanıcı adı veya parola hatalı')
         return redirect('book')
-
 
 def logout(request):
     

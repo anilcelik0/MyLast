@@ -1,5 +1,17 @@
 <div class="row align-items-center">
-    <div class="col text-center"><a class="btn btn-light" href="{% url 'book' %}">Kitap</a></div>
-    <div class="col text-center"><a class="btn btn-light" href="{% url 'movie' %}">Film</a></div>
-    <div class="col text-center"><a class="btn btn-light" href="{% url 'series' %}">Dizi</a></div>
+    <div class="col-4 text-center">
+        <a class="btn btn-light bg-white" href="{% url 'book' %}">
+            <img src="http://127.0.0.1:8000/image/book.svg" style="width: 50px;">
+            Kitap</a>
+    </div>
+    <div class="col-4 text-center">
+        <a class="btn btn-light bg-white" href="{% url 'movie' %}">
+            <img src="http://127.0.0.1:8000/image/film.svg" style="width: 50px;">
+            Film</a>
+    </div>
+    <div class="col-4 text-center">
+        <a class="btn btn-light bg-white" href="{% url 'series' %}">
+            <img src="http://127.0.0.1:8000/image/series.svg" style="width: 50px;">
+            Dizi</a>
+    </div>
 </div>
