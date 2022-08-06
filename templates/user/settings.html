@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOOK</title>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        {% include 'partials/_left_menu.html' %}
+      </div>
+
+      <div class="col-lg-6">
+        <div class="row align-items-center">
+            <div class="col-12 text-center mt-3">
+                <img class="img-fluid" style="border-radius: 50%; width: 100px;" src="/image/fakepp.jpg"></a>
+            </div>
+            <div class="col-12 text-center">
+                <h4>{{user.username}}</h4>
+            </div>
+            <div class="col-12 text-center mb-5">
+                <p>{{followers_len}} Takipçi</p>
+            </div>
+            <a type="button" class="btn btn-light mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                Profili Düzenle
+            </a>            
+            <a type="button" class="btn btn-light mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                Şifreyi Değiştir
+            </a>
+
+            
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Düzenle</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="form" action="{% url 'settings' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group mt-3">
+                              <label class="lbl">name </label>
+                              <input type="text" name="name" value="{{user.first_name}}" class="form-control" id="name" required>
+                  
+                            </div>
+                            <div class="form-group mt-3">
+                              <label class="lbl">surname </label>
+                              <input type="text" name="surname" value="{{user.last_name}}" class="form-control" id="surname" required>
+                  
+                            </div>
+                  
+                            <div class="form-group mt-3">
+                              <label class="lbl">Username </label>
+                              <input type="text" name="username" value="{{user.username}}" class="form-control" id="username" required>
+                  
+                            </div>
+                  
+                            <div class="form-group mt-3">
+                              <label class="lbl">Email address</label>
+                              <input type="email" name="email" value="{{user.email}}" class="form-control" id="email"
+                                aria-describedby="emailHelp">
+                            </div>
+                  
+                            
+                            <div class="modal-footer mt-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                <button type="submit" class="btn btn-primary" name="send">Düzenle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Şifreyi Değiştir</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="formpsw" action="{% url 'settings' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group mt-3">
+                              <label class="lbl">Old Password</label>
+                              <input type="Password" name="oldpassword" id="oldpassword" class="form-control" required="">
+                            </div>
+                            <div class="form-group mt-3">
+                              <label class="lbl">New Password</label>
+                              <input class="form-control" type="Password" name="password" id="password" required="">
+                            </div>
+                            <div class="form-group mt-3"><label class="lbl">Repassword</label>
+                              <input type="Password" name="repassword" id="repassword" class="form-control" required="">
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3" name="pswsend">Gönder</button>
+                          </form>
+                        </div>
+                </div>
+            </div>
+
+            
+    </div>
+  </div>
+</div>
+  <script>
+    $(function () {
+
+      $("#search").autocomplete({
+        source: '{% url 'book' %}',
+        minLength: 3
+
+      });
+
+    });
+
+    $('#buton').click(function () {
+      var a = $('#search').val();
+      var url = '{% url "book_page" 1 %}'.replace('1', a);
+      $('#buton').attr('href', url);
+    });
+
+  </script>
+</body>
+</html>

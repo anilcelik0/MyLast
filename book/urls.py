@@ -6,5 +6,5 @@ from book import views
 urlpatterns = [
     path('', views.index, name='book'),
     path('page/<str:book_name>', views.book_page, name="book_page"),
-    path('book_saves', views.book_saves, name='book_saves')
+    path('book_save', views.book_save, name='book_save')
 ]

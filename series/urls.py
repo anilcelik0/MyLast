@@ -5,5 +5,6 @@ from series import views
 
 urlpatterns = [
     path('', views.index, name='series'),
-    path('page/<str:series_name>', views.series_page, name="series_page")
+    path('page/<str:series_name>', views.series_page, name="series_page"),
+    path('series_save', views.series_save, name='series_save')
 ]

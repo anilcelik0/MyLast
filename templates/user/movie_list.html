@@ -33,7 +33,7 @@
                     <li class="list-group-item">
                         <div class='row'>
                             <div class="col-6">
-                                <h5>{{movie.movie}}</h5>
+                                <h5><a class="link-dark" style="text-decoration: none;" href="{% url 'movie_page' movie.movie %}">{{movie.movie}}</a></h5>
                             </div>
                             <div class="col-6 row justify-content-end">
                                 <div class="col-3 col-md-2">

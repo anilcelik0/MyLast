@@ -19,6 +19,7 @@ class seriess(models.Model):
 class series_shares(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
     comment=models.CharField(max_length=2000, null=False)
+    like_count=models.IntegerField(default=0, null=False)
     yt=models.DateTimeField(auto_now_add = True)
     
     role_hide=[(0,'herkes'),
@@ -30,7 +31,7 @@ class series_shares(models.Model):
         (3,'3'),
         (4,'4'),
         (5,'5')]
-    rate = models.IntegerField(null=False,choices=role_rate,default=1)
+    rate = models.IntegerField(null=False,choices=role_rate,default=3)
      
     series=models.ForeignKey(to='series.seriess', on_delete=models.CASCADE, related_name='series_share', null=False)
     user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_user', null=False)
@@ -66,4 +67,13 @@ class series_saves(models.Model):
     yt=models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return self.user.username
+        return self.series_share.series.name
+    
+class series_share_liked(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    series_share=models.ForeignKey('series.series_shares', on_delete=models.CASCADE, related_name='series_share_liked')
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='series_share_liked_user', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    
+    def __str__(self):
+        return self.series_share.series.name

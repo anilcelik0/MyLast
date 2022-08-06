@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,8 @@
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -34,12 +36,10 @@
         <div class="card mt-5" style="width: 100%;">
           <div class="row align-items-center ">
             <div class="col-6 row align-items-center">
-              <div class="col-3">
-                <img class="img-fluid" style="margin-left:15%; border-radius: 50%;" src="/image/fakepp.jpg"></a>
-
-              </div>
-              <div class="col-5">
-                <p class="mt-3">{{share.user}}</p>
+              <div class="col-12">
+                <a class="link-dark" style="text-decoration: none;" href="{% url 'profiles' share.user %}">
+                <img class="img-fluid mt-2 ms-2" style=" border-radius: 50%; width:40px" src="/image/{{share.user.profile_photo.pp}}">
+                {{share.user}}</a>
 
               </div>
             </div>
@@ -51,31 +51,108 @@
           </div>
 
           <div class="card-body">
-            <h5 class="cart-title">{{share.book}} - {{share.book.author}}</h5>
-            <div>
-              <p>{{share.rate}}</p>
+            <h5 class="cart-title"><a class="link-dark" style="text-decoration: none;" href="{% url 'book_page' share.book %}">{{share.book}}</a> - {{share.book.author}}</h5>
+            <div name="rate">
+              <input type="hidden" value="{{share.rate}}" id="rate">
+              <span class="fa fa-star fa-2x" id="first"></span>
+              <span class="fa fa-star fa-2x" id="second"></span>
+              <span class="fa fa-star fa-2x" id="third"></span>
+              <span class="fa fa-star fa-2x" id="fourth"></span>
+              <span class="fa fa-star fa-2x" id="fifth"></span> 
+              <style>.checked{
+                color:orange;  
+              }
+              </style>
+
             </div>
 
             <p class="card-text">{{share.comment}}</p>
             <div class="row text-center">
+              {% if user.is_authenticated %}
               <div class="col">
-                <img id="heart" src="/image/empt_heart.png" style="width: 30px;">
-                <script>
-                  $('#heart').click(function () {
-                    $('#heart').attr('src', '/image/full_heart.png');
-                  });
-                </script>
+                <form action="{% url 'book' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="book_share" value="{{share.id}}">
+                  <input type="hidden" name="heart">
+                <p>
+                <input type="image" src="/image/{% if share.book.name in likess %}full_heart.png {% else %}empty_heart.png{% endif %}" style="width: 30px;">
+                {{share.like_count}}</p>
+              </form>
               </div>
               <div class="col">
                 <img id="comment" src="/image/comment.svg" style="width: 30px;">
               </div>
-              <div class="col">
-                <img id="list" src="/image/list.svg" style="width: 30px;">
+              <div class="col dropend">
+                <button class="btn btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="list" class="" src="/image/list.svg" style="width: 30px;">
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for book_list in book_lists %}
+                <form action="{% url 'book' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="book_list" value="{{book_list.id}}">
+                  <input type="hidden" name="book_share" value="{{share.book.id}}">
+                <li><button type="submit" class="dropdown-item" >{{book_list.name}}</button></li>
+              </form>
+                {% endfor %}
+              </ul>
               </div>
               <div class="col">
-                <img id="list" src="/image/save.svg" style="width: 30px;">
+                <form action="{% url 'book' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="book_save" value="{{share.id}}">
+                  <input type="hidden" name="save">
+                <input type="image" src="/image/{% if share.book.name in save_list %}full_save.svg {% else %}save.svg{% endif %}" style="width: 30px;">
+              </form>
               </div>
+              {% else %}
+              <div class="col">
+                <img src="/image/empty_heart.png" style="width: 30px;">
+              </div>
+              <div class="col">
+                <img src="/image/comment.svg" style="width: 30px;">
+              </div>
+              <div class="col">
+                <img src="/image/list.svg" style="width: 30px;">
+              </div>
+              <div class="col">
+                <img src="/image/save.svg" style="width: 30px;">
+              </div>
+              {% endif %}
             </div>
+            {% comment %} <table class="table">
+              <tr>
+                <td>
+
+                  <form class="rate-form" action="{% url 'book' %}" method="post">                        
+                    <input type="hidden" name="id" value="{{share.id}}">
+                    <div class="form-floating">
+                      <textarea  class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                      <label for="floatingTextarea2">Yorum</label>
+                    </div>       
+                    {% csrf_token %}
+                      <input type="hidden"  name="share" value="{{share.name}}">
+                    <button class="btn btn-primary col-4-end" type="submit">Yorum</button>
+                  
+                </form>
+                </td>
+              </tr>
+              <tr>
+                {% for share in shares %}
+                <td class="row">   
+                  <div class="col-1">                         
+                  <img class="img-fluid mt-2 ms-2" style=" border-radius: 50%; width:40px" src="/image/{{share.user.profile_photo.pp}}">
+                  </div>
+                  <div class="col-10">
+                  <a class="link-dark fw-bold" style="text-decoration: none;" href="{% url 'profiles' share.user %}">
+                  {{share.user}}</a>
+                  <p>{{share.comment}}</p>
+                  </div>
+                </td>
+                {% endfor %}
+              </tr>
+            </table> {% endcomment %}
+
           </div>
         </div>
         {% endfor %}
@@ -102,5 +179,6 @@
       $('#buton').attr('href', url);
     });
   </script>
+  <script src="{% static 'js/static_star.js' %}"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
 <div class="row">
 <div class="nav-item fs-3 col-12 row ">
-    <a class="navbar-brand " href="#">
+    <a class="navbar-brand fs-3" href="{% url 'book' %}">
         <img src="http://127.0.0.1:8000/image/logo.jpg" alt="" width="60" height="48" class="d-inline-block align-text-top text-center">
         MyLast
     </a>
@@ -25,15 +25,15 @@
 </div>
 <div class="nav-item fs-3 col-12 row">
     <img class="col-2" src="http://127.0.0.1:8000/image/save.svg">
-<a class="nav-link col-10" href="{% url 'book_saves' %}">Kaydedilenler</a>
+<a class="nav-link col-10" href="{% url 'book_save' %}">Kaydedilenler</a>
 </div>
 <div class="nav-item fs-3 col-12 row">
     <img class="col-2" src="http://127.0.0.1:8000/image/profile.svg">
-<a class="nav-link col-10" href="">Profil</a>
+<a class="nav-link col-10" href="{% url 'profile' %}">Profil</a>
 </div>
 <div class="nav-item fs-3 col-12 row">
     <img class="col-2" src="http://127.0.0.1:8000/image/settings.svg">
-<a class="nav-link col-10" href="">Ayarlar</a>
+<a class="nav-link col-10" href="{% url 'settings' %}">Ayarlar</a>
 </div>
 <div class="nav-item fs-3 col-12 row">
     <img class="col-2" src="http://127.0.0.1:8000/image/request.svg">

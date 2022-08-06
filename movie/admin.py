@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import movies, movie_shares, movie_list, movie_list_content, movie_saves
+from .models import movies, movie_shares, movie_list, movie_list_content, movie_saves, movie_share_liked
 
 # Register your models here.
 
@@ -23,8 +23,13 @@ class movie_saves_admin(admin.ModelAdmin):
     list_display=("id","movie_share","user","yt")
     search_fields=("user",)
     
+class movie_share_liked_admin(admin.ModelAdmin):
+    list_display=("id","movie_share","user","yt")
+    search_fields=("user","movie_share")
+    
 admin.site.register(movies,movie_admin)
 admin.site.register(movie_shares,movie_shares_admin)
 admin.site.register(movie_list,movie_list_admin)
 admin.site.register(movie_list_content,movie_list_content_admin)
 admin.site.register(movie_saves,movie_saves_admin)
+admin.site.register(movie_share_liked,movie_share_liked_admin)

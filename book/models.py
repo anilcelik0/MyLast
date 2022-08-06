@@ -19,6 +19,7 @@ class books(models.Model):
 class book_shares(models.Model):
     id=models.IntegerField(primary_key=True, null=False, unique=True)
     comment=models.CharField(max_length=2000, null=False)
+    like_count=models.IntegerField(default=0, null=False)
     yt=models.DateTimeField(auto_now_add = True)
     
     role_hide=[(0,'herkes'),
@@ -67,5 +68,15 @@ class book_saves(models.Model):
     yt=models.DateTimeField(auto_now_add = True)
     
     def __str__(self):
-        return self.user.username
+        return self.book_share.book.name
     
+
+class book_share_liked(models.Model):
+    id=models.IntegerField(primary_key=True, null=False, unique=True)
+    book_share=models.ForeignKey('book.book_shares', on_delete=models.CASCADE, related_name='book_share_liked')
+    user=models.ForeignKey(to='auth.User', on_delete=models.CASCADE, related_name='book_share_liked_user', null=False)
+    yt=models.DateTimeField(auto_now_add = True)
+    
+    def __str__(self):
+        return self.book_share.book.name
+
